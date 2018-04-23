@@ -8,3 +8,8 @@ title('冲激响应')
 subplot(212);plot(t,s),grid on;
 xlabel('t'),ylabel('h(s)');
 title('阶跃响应')
+
+%阶跃函数另外
+%y=[1,4,3]
+%x=[2,1]
+%plot(x,y)
