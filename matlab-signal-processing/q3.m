@@ -6,3 +6,6 @@ n=length(f1)+length(f2)-2;
 x=0:0.01:n*0.01;
 plot(x,y);
 axis([-1,10,0,1]);
+title('¾í»ý');
+xlabel('t');
+ylabel('y(t)');
