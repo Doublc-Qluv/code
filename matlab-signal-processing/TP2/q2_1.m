@@ -1,0 +1,13 @@
+A = 0.8; 
+T = 2*pi;
+t = 0:4*pi/1000:4*pi;
+f = square(t,50)*A;
+plot(t,f);hold on;
+axis([0,10,-1,1]);
+title('square & square\_wave');
+xlabel('t');
+ylabel(' ');
+grid on;
+wave = square_wave(200);
+plot(t,wave);
+legend('square()','square\_wave');
