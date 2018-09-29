@@ -23,6 +23,7 @@
 
 ![OSI模型](OSI.jpg)
 ![OSI模型-2](OSI-2.png)
+#### 2. OSI七层模型
 |具体七层|数据格式|功能与连接方式|典型设备|协议规范|注|
 |----|----|----|----|----|----|
 |应用层 Application|数据ATPU|网络服务与使用者应用程序间的一个接口|终端设备（PC、手机、平板等）|HTTP、HTTPS、FTP、TELNET、SSH、SMTP、POP3等|提供应用程序间的通信|
@@ -35,3 +36,12 @@
 
 
  <h3 id="12">TCP/IP四层模型</h3>
+#### 1. TCP/IP与OSI
+
+- 协议层映射
+
+![OSI-TCPIP对映](OSI-TCPIP对映.png)
+
+- 详细协议
+
+![OSI-TCP](TCPIP模型.gif)
