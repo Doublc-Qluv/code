@@ -20,4 +20,3 @@
  <h3 id="1.1">ISO/OSI参考模型</h3>
 
 #### OSI（open system interconnection）开放系统
-qwertyuuiop[]\asdfghjkl;'zxcvbnm,./\ 
