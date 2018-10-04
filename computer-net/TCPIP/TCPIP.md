@@ -65,3 +65,7 @@
 - 针对：
     PDU同目的计算机的对等层通信
 
+## 封装(Encapsulation)
+
+![数据进入协议栈时的封装过程](protocol-stack-encapsulation.jpg))
+将数据加上一定的头部使得下一层可以识别并解析
