@@ -132,5 +132,27 @@ thanks for [CSDN 秋风io](https://blog.csdn.net/zxhio/article/details/79952226)
     - 严格的源站选路
 <h3 id="133">检验和</h3>
 
- 
+
 ### 检验和算法
+- TCP UDP 为了验证还有增加了两个伪首部
+- 计算检验和（发送方） 
+    - 首先把检验和字段置0
+    - 对检验字段（IP只有首部，TCP/UDP等为首部和数据）中每个16-bit进行二进制反码求和
+    - 结果存于检验和字段
+- 计算检验和（接受方） 
+    - 由于接受方在计算过程中包含了发送方存在首部的检验和，因此，如果在传输过程中没有发送任何差错，那么接受方计算的结果应该为全1
+- C 的简单实现
+```c
+unsigned short check_sum(unsigned short *addr,int len)
+{
+    unsigned long sum;
+
+    for (sum=0; len > 0; len--)
+        sum += *addr++;
+
+    sum = (sum >> 16) + (sum & 0xffff);
+    sum += (sum >> 16);
+
+    return ~sum;
+}
+```
