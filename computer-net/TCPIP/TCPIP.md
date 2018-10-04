@@ -158,3 +158,10 @@ unsigned short check_sum(unsigned short *addr,int len)
 ```
 ## 分用(Demultiplexing)
 ![分用](分用.jpg)
+>数据从下到上进行数据包的解封，又称为数据的分用
+
+## 端口(port)
+
+- 众所周知的端口：从0到1023，这些端口由IANA分配和控制它们紧密的绑定于一些服务。通常这些端口的通讯表明了某种服务的协议。eg：21端口为ftp服务端口。
+- 注册端口(Registered Ports)：从1024到49151。这些端口不受IANA的控制，但是由IANA登记并提供使用情况清单，这些端口同样用于许多其它目的。例如：1433 Microsoft SQL服务端口
+- 动态或私有端口(Dynamic or Private Port)：从49152到65535。IANA不管这些端口。实际上，机器从通常从1024起分配动态端口。但也有例外：SUN的RPC端口从32768开始。
