@@ -156,3 +156,5 @@ unsigned short check_sum(unsigned short *addr,int len)
     return ~sum;
 }
 ```
+## 分用(Demultiplexing)
+![分用](分用.jpg)
