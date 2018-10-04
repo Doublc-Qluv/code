@@ -66,6 +66,14 @@
     PDU同目的计算机的对等层通信
 
 ## 封装(Encapsulation)
+thanks for [CSDN 秋风io](https://blog.csdn.net/zxhio/article/details/79952226)
 
-![数据进入协议栈时的封装过程](protocol-stack-encapsulation.jpg))
-将数据加上一定的头部使得下一层可以识别并解析
+![数据进入协议栈时的封装过程](protocol-stack-encapsulation.jpg)
+
+当应用程序用TCP传送数据时,数据被传送入协议栈中,然后逐一通过每一层直到被当作一串比特流送入网络
+>注: UDP数据TCP数据基本一致. 唯一不同的是UDP传给IP的信息单元称作UDP数据报
+
+其中每一层对收到的数据都要增加一些首部信息(有时还要增加尾部信息)
+>注： 4个字节的32bit值的传输次序：首先是0-7字节，其次是8-15, 然后是16-23, 最后是24-31 bit，这种传输次序称作 big-ending（大端）字节序，或者网络字节序
+
+### UDP封装
