@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*
 import string
 
@@ -35,19 +36,19 @@ def decryption(ciphertext):
     return plain
 
 while True:
-    choose = raw_input('1.加密；2.解密\n')
+    choose = raw_input('1.encode,2.decode\n')
     if choose == '1':
-        plaintext = raw_input('请输入明文：')
+        plaintext = raw_input('message：')
         cipher = encryption(plaintext)
         if plaintext == 'exit':
             break
-        print '密文是:',cipher,'\n'
+        print'cipher_is:',cipher,'\n'
 
     elif choose == '2':
-        ciphertext = raw_input('请输入密文：')
+        ciphertext = raw_input('input_cipher：')
         plain = decryption(ciphertext)
         if ciphertext == 'EXIT':
             break
-        print '明文输出为：',plain,'\n'
+        print 'message_is：',plain,'\n'
     else:
         print'error'
