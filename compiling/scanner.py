@@ -599,7 +599,7 @@ class semantics(parser):
     def draw(self):
         #print(self)
         plt.figure(num=1,figsize=(10,10))
-        plt.title('编译原理大作业—————简单函数绘图  16180110068曹海鹏')
+        plt.title('编译原理大作业')
         self.fetchToken()
         self.program()
         #plt.scatter(self.draw_x,self.draw_y)
