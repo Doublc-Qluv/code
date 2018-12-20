@@ -12,8 +12,8 @@ plt.rc('font', family='SimHei', size=7)
 #负数坐标显示
 plt.rcParams['axes.unicode_minus']=False  
 
-##############################词法分析器######################
-#字典   token_table  
+######################词法分析器######################
+#字典栈   token_table  
 #读取源文件    class read_file()
 ##记号的数据类   class scanner_Token()
 #词法分析器DFA    class scanner()
@@ -73,8 +73,6 @@ class scanner(object):
         self.content=read_file().line_content
 
     def token_type_get(self):
-        #print(self.content,type(self.content))
-        #for i in range(len(self.content)):
         self.content=iter(self.content)   #源代码的迭代器
         ch=self.content.__next__()
         while ch is not '@':
@@ -85,8 +83,6 @@ class scanner(object):
                 if ch is '@':
                     item=scanner_Token('NONTOKEN','@',0)
                     yield item
-                    #raise StopIteration
-            ###########################只有正数？？？？？？？？负数无法识别
             if ch.isalnum():
                 if ch.isdigit():
                     ####数字CONST_ID
@@ -198,11 +194,10 @@ def scanner_main():
 
 #scanner_main()
 
-###################################语法分析器####################
+###################################语法分析器###################################
 #语法树类的定义   class Node()
 #语法树的构造和输出  class parser_tree():
 #语法分析器  class parser()
-
 ##语法分析其测试程序  def parser_main():
     
 
@@ -461,8 +456,6 @@ class semantics_tree(object):
         elif root.data is 'POWER':
             return float(semantics_tree().parser_tree_values(root.left,T))**float(semantics_tree().parser_tree_values(root.right,T))
         elif root.data is 'FUNC':
-            #is 与==  的毒
-            #if root.values is 'SIN':
             if root.values == 'SIN':
                 return math.sin(semantics_tree().parser_tree_values(root.child,T))
             elif root.values == 'COS':
@@ -489,7 +482,6 @@ class semantics_tree(object):
 class semantics(parser):
     def __init__(self,my_scanner=None):
         parser.__init__(self,my_scanner)
-        #初始化
         self.scale_x=0    #横坐标比例
         self.scale_y=0  #纵坐标比列
         self.rot=0    #角度
@@ -497,7 +489,7 @@ class semantics(parser):
         self.origin_y=0 #初始化纵坐标值
         self.start=0  #起始值
         self.end=0      #结束值
-        self.step=0    #布长
+        self.step=0    #步长
         self.x=0   #横坐标
         self.y=0   #纵坐标
 
@@ -569,7 +561,6 @@ class semantics(parser):
 
     #计算作图时用到的横纵坐标的值
     def draw_expression(self):
-        #注意终止点的取值？？？
         self.draw_x=[]
         self.draw_y=[]
         for t in np.arange(self.start,self.end+self.step,self.step):
@@ -591,14 +582,14 @@ class semantics(parser):
             self.draw_x=self.draw_x+self.origin_x
             self.draw_y=self.draw_y+self.origin_y
         print('1')
-        plt.scatter(self.draw_x,self.draw_y)
+        plt.scatter(self.draw_x,self.draw_y,marker=',',c='r',s=1)
         print(self.draw_x,self.draw_y)
         #plt.show()
 
     #启动函数------绘图函数
     def draw(self):
         #print(self)
-        plt.figure(num=1,figsize=(10,10))
+        plt.figure(num=1,figsize=(8,6))
         plt.title('编译原理大作业')
         self.fetchToken()
         self.program()
