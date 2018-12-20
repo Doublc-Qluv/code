@@ -14,3 +14,5 @@ class Student(object):
                 return 'B'
             else:
                 return 'C'
+if __name__ == 'main':
+    Student
