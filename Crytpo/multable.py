@@ -1,7 +1,7 @@
 import numpy as np
 from math import gcd
 
-#求解行列式函数---使用det求解时候会遇到精度问题
+#求解行列式函数
 def det(m):
     if len(m) <= 0:
         return None
