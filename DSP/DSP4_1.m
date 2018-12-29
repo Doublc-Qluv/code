@@ -4,7 +4,7 @@ st=mstg;
 ap=0.1;
 as=60;
 Fs=10000;
-T=1/Fs
+T=1/Fs;
 
 %ตออจ
 fp=280;
@@ -31,7 +31,7 @@ fs2=930;
 fp=[fp1,fp2];
 fs=[fs1,fs2];
 wp=2*fp/Fs;
-ws=2*fs/Fs;wp
+ws=2*fs/Fs;
 [n2,wp]=ellipord(wp,ws,ap,as);
 [B2,A2]=ellip(n2,ap,as,wp);
 y2=filter(B2,A2,st);
