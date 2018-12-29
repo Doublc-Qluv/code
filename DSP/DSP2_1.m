@@ -13,9 +13,7 @@ for i = 1 : 3
     y=fft(x,64);
     m=abs(y);
     f=(0:63)/Tp(i,1);
-    %²ÉÑùx
     xlabel(xL(i));ylabel({yL(i,:)},'Interpreter','tex');subplot(3,2,2*i-1);stem(n,x,'.'); 
-   %»ìµþX
     xlabel(xL(i));ylabel({yL2(i,:)},'Interpreter','tex');subplot(3,2,2*i); plot(f,m);
    
 end
