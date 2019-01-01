@@ -70,9 +70,9 @@ def myplot(B,A):
     #B为系统函数分子多项式系数向量
     #A为系统函数分母多项式系数向量
     #计算数字滤波器的频率响应
-    [H,W]=signal.freqz(B,A,1000)        #数字滤波器的频率响应
+    [H,W]=signal.freqz(B,A)        #数字滤波器的频率响应
     #y1=np.fft.fft(B,A,st)
-    print(signal.freqz(B,A,1000))
+    print(signal.freqz(B,A))
     #plt.plot(np.arange(len(y1))/fs,y1)
     #plt.plot(W,20*np.log10(max(abs(H))/(abs(H))))
     plt.plot(20*np.log10(abs(H)),W)
