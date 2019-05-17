@@ -1,4 +1,4 @@
-//1. 将合法 C 源程序每行前加上行号并删除其所有注释。
+/*1. 将合法 C 源程序每行前加上行号并删除其所有注释。*/
 #include <stdio.h>
 #include <string.h> 
 int main(){
