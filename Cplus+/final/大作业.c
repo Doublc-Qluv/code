@@ -847,8 +847,7 @@ int main()
 					break;
 			case'0':
 					return 0;
-			default:
-				system("cls");
+			default:·
 				printf("选择错误！\n");
 				legalUser=0;
 					break;
@@ -858,4 +857,3 @@ int main()
 	} while(legalUser==0);
 	return 0;
 }
-

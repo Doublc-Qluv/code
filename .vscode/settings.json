@@ -1,4 +1,10 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
-    "python.pythonPath": "/anaconda3/envs/dl/bin/python"
+    "python.pythonPath": "/anaconda3/envs/dl/bin/python",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    }
 }
