@@ -1,0 +1,2535 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{fin22}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{examples}\PY{n+nn}{.}\PY{n+nn}{tutorials}\PY{n+nn}{.}\PY{n+nn}{mnist} \PY{k}{import} \PY{n}{input\PYZus{}data}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+        \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        
+        \PY{c+c1}{\PYZsh{} 将 numpy 数组中的图片和标签顺序打乱}
+        \PY{k}{def} \PY{n+nf}{shuffer\PYZus{}images\PYZus{}and\PYZus{}labels}\PY{p}{(}\PY{n}{images}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
+            \PY{n}{shuffle\PYZus{}indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{images}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{shuffled\PYZus{}images} \PY{o}{=} \PY{n}{images}\PY{p}{[}\PY{n}{shuffle\PYZus{}indices}\PY{p}{]}
+            \PY{n}{shuffled\PYZus{}labels} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{shuffle\PYZus{}indices}\PY{p}{]}
+            \PY{k}{return} \PY{n}{shuffled\PYZus{}images}\PY{p}{,} \PY{n}{shuffled\PYZus{}labels}
+        
+        \PY{c+c1}{\PYZsh{} 将label从长度10的one hot向量转换为0\PYZti{}9的数字}
+        \PY{c+c1}{\PYZsh{} 例：get\PYZus{}label(total\PYZus{}labels[0]) 获取到total\PYZus{}labels中第一个标签对应的数字}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}label}\PY{p}{(}\PY{n}{label}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{label}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} images：训练集的feature部分}
+        \PY{c+c1}{\PYZsh{} labels：训练集的label部分}
+        \PY{c+c1}{\PYZsh{} batch\PYZus{}size： 每次训练的batch大小}
+        \PY{c+c1}{\PYZsh{} epoch\PYZus{}num： 训练的epochs数}
+        \PY{c+c1}{\PYZsh{} shuffle： 是否打乱数据}
+        \PY{c+c1}{\PYZsh{} 使用示例：}
+        \PY{c+c1}{\PYZsh{}   for (batchImages, batchLabels) in batch\PYZus{}iter(images\PYZus{}train, labels\PYZus{}train, batch\PYZus{}size, epoch\PYZus{}num, shuffle=True):}
+        \PY{c+c1}{\PYZsh{}       sess.run(feed\PYZus{}dict=\PYZob{}inputLayer: batchImages, outputLabel: batchLabels\PYZcb{})}
+        \PY{k}{def} \PY{n+nf}{batch\PYZus{}iter}\PY{p}{(}\PY{n}{images}\PY{p}{,}\PY{n}{labels}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{epoch\PYZus{}num}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{n}{data\PYZus{}size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{images}\PY{p}{)}
+            \PY{n}{num\PYZus{}batches\PYZus{}per\PYZus{}epoch} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{data\PYZus{}size} \PY{o}{/} \PY{n}{batch\PYZus{}size}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 样本数/batch块大小,多出来的“尾数”，不要了}
+            \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epoch\PYZus{}num}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Shuffle the data at each epoch}
+                \PY{k}{if} \PY{n}{shuffle}\PY{p}{:}
+                    \PY{n}{shuffle\PYZus{}indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{data\PYZus{}size}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{shuffled\PYZus{}data\PYZus{}feature} \PY{o}{=} \PY{n}{images}\PY{p}{[}\PY{n}{shuffle\PYZus{}indices}\PY{p}{]}
+                    \PY{n}{shuffled\PYZus{}data\PYZus{}label}   \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{shuffle\PYZus{}indices}\PY{p}{]}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{shuffled\PYZus{}data\PYZus{}feature} \PY{o}{=} \PY{n}{images}
+                    \PY{n}{shuffled\PYZus{}data\PYZus{}label} \PY{o}{=} \PY{n}{labels}
+                \PY{k}{for} \PY{n}{batch\PYZus{}num} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}batches\PYZus{}per\PYZus{}epoch}\PY{p}{)}\PY{p}{:}   \PY{c+c1}{\PYZsh{} batch\PYZus{}num取值0到num\PYZus{}batches\PYZus{}per\PYZus{}epoch\PYZhy{}1}
+                    \PY{n}{start\PYZus{}index} \PY{o}{=} \PY{n}{batch\PYZus{}num} \PY{o}{*} \PY{n}{batch\PYZus{}size}
+                    \PY{n}{end\PYZus{}index} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{p}{(}\PY{n}{batch\PYZus{}num} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{data\PYZus{}size}\PY{p}{)}
+        
+                    \PY{k}{yield} \PY{p}{(}\PY{n}{shuffled\PYZus{}data\PYZus{}feature}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{:}\PY{n}{end\PYZus{}index}\PY{p}{]} \PY{p}{,} \PY{n}{shuffled\PYZus{}data\PYZus{}label}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{:}\PY{n}{end\PYZus{}index}\PY{p}{]}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} 读取数据集}
+        \PY{n}{mnist} \PY{o}{=} \PY{n}{input\PYZus{}data}\PY{o}{.}\PY{n}{read\PYZus{}data\PYZus{}sets}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MNIST\PYZus{}data/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{one\PYZus{}hot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n}{total\PYZus{}images} \PY{o}{=} \PY{n}{mnist}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{images}
+        \PY{n}{total\PYZus{}labels} \PY{o}{=} \PY{n}{mnist}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{labels}
+        \PY{n}{total\PYZus{}images}\PY{p}{,} \PY{n}{total\PYZus{}labels} \PY{o}{=} \PY{n}{shuffer\PYZus{}images\PYZus{}and\PYZus{}labels}\PY{p}{(}\PY{n}{total\PYZus{}images}\PY{p}{,} \PY{n}{total\PYZus{}labels}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} 简单划分前50000个为训练集，后5000个为测试集}
+        \PY{n}{origin\PYZus{}images\PYZus{}train} \PY{o}{=} \PY{n}{total\PYZus{}images}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{50000}\PY{p}{]}
+        \PY{n}{origin\PYZus{}labels\PYZus{}train} \PY{o}{=} \PY{n}{total\PYZus{}labels}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{50000}\PY{p}{]}
+        \PY{n}{origin\PYZus{}images\PYZus{}test} \PY{o}{=} \PY{n}{total\PYZus{}images}\PY{p}{[}\PY{l+m+mi}{50000}\PY{p}{:}\PY{p}{]}
+        \PY{n}{origin\PYZus{}labels\PYZus{}test} \PY{o}{=} \PY{n}{total\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{50000}\PY{p}{:}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} 构建和训练模型}
+        \PY{k}{def} \PY{n+nf}{train\PYZus{}and\PYZus{}test1}\PY{p}{(}\PY{n}{images\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{images\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{,} \PY{n}{images\PYZus{}validation}\PY{p}{,} \PY{n}{labels\PYZus{}validation}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{l+m+mi}{784}\PY{p}{]}\PY{p}{,}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+           
+            \PY{c+c1}{\PYZsh{}隐藏层神经元数量}
+            \PY{n}{H1\PYZus{}NN} \PY{o}{=} \PY{l+m+mi}{256}\PY{c+c1}{\PYZsh{}第1隐藏层神经元为256个}
+            \PY{n}{H2\PYZus{}NN} \PY{o}{=} \PY{l+m+mi}{64}\PY{c+c1}{\PYZsh{}第2隐藏层神经元为64个}
+            \PY{c+c1}{\PYZsh{}输入层 \PYZhy{} 第1隐藏层参数和偏置顶}
+            \PY{n}{W1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{truncated\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{784}\PY{p}{,}\PY{n}{H1\PYZus{}NN}\PY{p}{]}\PY{p}{,}\PY{n}{stddev} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{b1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{H1\PYZus{}NN}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}第1隐藏层\PYZhy{} 第2隐藏层参数和偏置顶}
+            \PY{n}{W2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{truncated\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{H1\PYZus{}NN}\PY{p}{,}\PY{n}{H2\PYZus{}NN}\PY{p}{]}\PY{p}{,}\PY{n}{stddev} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{b2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{H2\PYZus{}NN}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}第2隐藏层\PYZhy{} 输出层}
+            \PY{n}{W3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{truncated\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{H2\PYZus{}NN}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{n}{stddev} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{b3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{Y1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{W1}\PY{p}{)}\PY{o}{+}\PY{n}{b1}\PY{p}{)}
+            \PY{n}{Y2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{Y1}\PY{p}{,}\PY{n}{W2}\PY{p}{)}\PY{o}{+}\PY{n}{b2}\PY{p}{)}
+            \PY{n}{forward} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{Y2}\PY{p}{,}\PY{n}{W3}\PY{p}{)}\PY{o}{+}\PY{n}{b3}
+            \PY{n}{pred} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{forward}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}交叉熵}
+            \PY{n}{loss\PYZus{}function} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{logits}\PY{o}{=}\PY{n}{forward}\PY{p}{,}\PY{n}{labels}\PY{o}{=}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+            \PY{n}{train\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{40}\PY{c+c1}{\PYZsh{}训练轮数}
+            \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{60}\PY{c+c1}{\PYZsh{}单次训练样本数}
+            \PY{n}{total\PYZus{}batch} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{images\PYZus{}train}\PY{p}{)}\PY{o}{/}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{c+c1}{\PYZsh{}一轮训练有多少批次}
+            \PY{c+c1}{\PYZsh{}splay\PYZus{}step = 1\PYZsh{}显示粒度}
+            \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.003}\PY{c+c1}{\PYZsh{}学习率}
+            \PY{c+c1}{\PYZsh{}优化器}
+            \PY{n}{optimizer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{AdamOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{loss\PYZus{}function}\PY{p}{)}
+            \PY{n}{correct\PYZus{}prediction} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{pred}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct\PYZus{}prediction}\PY{p}{,}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}建立会话}
+            \PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)}
+            \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init}\PY{p}{)}
+            \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{for} \PY{p}{(}\PY{n}{batchImages}\PY{p}{,} \PY{n}{batchLabels}\PY{p}{)} \PY{o+ow}{in} \PY{n}{batch\PYZus{}iter}\PY{p}{(}\PY{n}{images\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{train\PYZus{}epochs}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{optimizer}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{n}{batchImages}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{batchLabels}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} accu\PYZus{}test = sess.run(accuracy,feed\PYZus{}dict=\PYZob{}x:images\PYZus{}test,y:labels\PYZus{}test\PYZcb{})}
+                
+                \PY{k}{if} \PY{n}{count}\PY{o}{\PYZpc{}}\PY{k}{total\PYZus{}batch}== 0:
+                    \PY{n}{accu\PYZus{}test} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{accuracy}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{images\PYZus{}test}\PY{p}{,}\PY{n}{y}\PY{p}{:}\PY{n}{labels\PYZus{}test}\PY{p}{\PYZcb{}}\PY{p}{)}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{accu\PYZus{}test}\PY{p}{)}  
+                \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Final Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{accuracy}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{images\PYZus{}validation}\PY{p}{,}\PY{n}{y}\PY{p}{:}\PY{n}{labels\PYZus{}validation}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train finied!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} 划分数据集并调用train\PYZus{}and\PYZus{}test测试和验证}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From <ipython-input-1-587a66dac93a>:48: read\_data\_sets (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use alternatives such as official/mnist/dataset.py from tensorflow/models.
+WARNING:tensorflow:From /anaconda3/envs/dl/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:260: maybe\_download (from tensorflow.contrib.learn.python.learn.datasets.base) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please write your own downloading logic.
+WARNING:tensorflow:From /anaconda3/envs/dl/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:262: extract\_images (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use tf.data to implement this functionality.
+Extracting MNIST\_data/train-images-idx3-ubyte.gz
+WARNING:tensorflow:From /anaconda3/envs/dl/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:267: extract\_labels (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use tf.data to implement this functionality.
+Extracting MNIST\_data/train-labels-idx1-ubyte.gz
+WARNING:tensorflow:From /anaconda3/envs/dl/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:110: dense\_to\_one\_hot (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use tf.one\_hot on tensors.
+Extracting MNIST\_data/t10k-images-idx3-ubyte.gz
+Extracting MNIST\_data/t10k-labels-idx1-ubyte.gz
+WARNING:tensorflow:From /anaconda3/envs/dl/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:290: DataSet.\_\_init\_\_ (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use alternatives such as official/mnist/dataset.py from tensorflow/models.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} 使用简单划分的训练集和测试集训练，并使用测试集评估模型}
+        \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+        \PY{n}{start\PYZus{}time}\PY{o}{=}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{train\PYZus{}and\PYZus{}test1}\PY{p}{(}\PY{n}{origin\PYZus{}images\PYZus{}train}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}train}\PY{p}{,} \PY{n}{origin\PYZus{}images\PYZus{}test}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}test}\PY{p}{,} \PY{n}{origin\PYZus{}images\PYZus{}test}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}test}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{during\PYZus{}time:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From <ipython-input-1-587a66dac93a>:82: softmax\_cross\_entropy\_with\_logits (from tensorflow.python.ops.nn\_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+
+Future major versions of TensorFlow will allow gradients to flow
+into the labels input on backprop by default.
+
+See `tf.nn.softmax\_cross\_entropy\_with\_logits\_v2`.
+
+Accuracy: 0.9612
+Accuracy: 0.9578
+Accuracy: 0.9708
+Accuracy: 0.9716
+Accuracy: 0.9736
+Accuracy: 0.974
+Accuracy: 0.9716
+Accuracy: 0.9768
+Accuracy: 0.9726
+Accuracy: 0.9722
+Accuracy: 0.9722
+Accuracy: 0.971
+Accuracy: 0.9762
+Accuracy: 0.9742
+Accuracy: 0.9748
+Accuracy: 0.9746
+Accuracy: 0.972
+Accuracy: 0.972
+Accuracy: 0.9726
+Accuracy: 0.9728
+Accuracy: 0.9698
+Accuracy: 0.9756
+Accuracy: 0.9756
+Accuracy: 0.9768
+Accuracy: 0.9764
+Accuracy: 0.9754
+Accuracy: 0.9686
+Accuracy: 0.9736
+Accuracy: 0.977
+Accuracy: 0.9752
+Accuracy: 0.976
+Accuracy: 0.9722
+Accuracy: 0.9752
+Accuracy: 0.9746
+Accuracy: 0.9784
+Accuracy: 0.975
+Accuracy: 0.9746
+Accuracy: 0.9772
+Accuracy: 0.978
+Accuracy: 0.9746
+Final Accuracy: 0.9746
+Train finied!
+during\_time: 165.0057349205017
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}and\PYZus{}test2}\PY{p}{(}\PY{n}{images\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{images\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{,} \PY{n}{images\PYZus{}validation}\PY{p}{,} \PY{n}{labels\PYZus{}validation}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{l+m+mi}{784}\PY{p}{]}\PY{p}{,}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}1层隐藏层}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}隐藏层神经元数量}
+            \PY{n}{H1\PYZus{}NN} \PY{o}{=} \PY{l+m+mi}{256}
+            \PY{n}{W1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{784}\PY{p}{,}\PY{n}{H1\PYZus{}NN}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{b1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{H1\PYZus{}NN}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}激活函数ReLU}
+            \PY{n}{Y1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{W1}\PY{p}{)}\PY{o}{+}\PY{n}{b1}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}构建输出层}
+            \PY{n}{W2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{H1\PYZus{}NN}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{b2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}前向计算}
+            \PY{n}{forward} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{Y1}\PY{p}{,}\PY{n}{W2}\PY{p}{)} \PY{o}{+} \PY{n}{b2}
+            \PY{n}{pred} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{forward}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}交叉熵}
+            \PY{n}{loss\PYZus{}function} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{logits}\PY{o}{=}\PY{n}{forward}\PY{p}{,}\PY{n}{labels}\PY{o}{=}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+            \PY{n}{train\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{50}\PY{c+c1}{\PYZsh{}训练轮数}
+            \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{200}\PY{c+c1}{\PYZsh{}单次训练样本数}
+            \PY{n}{total\PYZus{}batch} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{images\PYZus{}train}\PY{p}{)}\PY{o}{/}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{c+c1}{\PYZsh{}一轮训练有多少批次}
+            \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.01}\PY{c+c1}{\PYZsh{}学习率}
+            \PY{c+c1}{\PYZsh{}优化器}
+            \PY{n}{optimizer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{AdamOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{loss\PYZus{}function}\PY{p}{)}
+            \PY{n}{correct\PYZus{}prediction} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{pred}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct\PYZus{}prediction}\PY{p}{,}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}建立会话}
+            \PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)}
+            \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init}\PY{p}{)}
+            \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{p}{(}\PY{n}{batchImages}\PY{p}{,} \PY{n}{batchLabels}\PY{p}{)} \PY{o+ow}{in} \PY{n}{batch\PYZus{}iter}\PY{p}{(}\PY{n}{images\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{train\PYZus{}epochs}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{optimizer}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{n}{batchImages}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{batchLabels}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{k}{if} \PY{n}{count}\PY{o}{\PYZpc{}}\PY{k}{total\PYZus{}batch}== 0:
+                    \PY{n}{accu\PYZus{}test} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{accuracy}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{images\PYZus{}test}\PY{p}{,}\PY{n}{y}\PY{p}{:}\PY{n}{labels\PYZus{}test}\PY{p}{\PYZcb{}}\PY{p}{)}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{accu\PYZus{}test}\PY{p}{)}  
+                \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{c+c1}{\PYZsh{}accu\PYZus{}validation = sess.run(accuracy,feed\PYZus{}dict=\PYZob{}x:images\PYZus{}validation,y:labels\PYZus{}validation\PYZcb{})}
+            \PY{c+c1}{\PYZsh{}print(\PYZdq{}Accuracy:\PYZdq{},accu\PYZus{}validation)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{accu\PYZus{}test}\PY{p}{)}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}  return accu\PYZus{}validation.item()}
+            \PY{k}{return} \PY{n}{accu\PYZus{}test}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} 划分数据集并调用train\PYZus{}and\PYZus{}test测试和验证}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} 使用简单划分的训练集和测试集训练，并使用测试集评估模型}
+        \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+        \PY{n}{start\PYZus{}time}\PY{o}{=}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{train\PYZus{}and\PYZus{}test2}\PY{p}{(}\PY{n}{origin\PYZus{}images\PYZus{}train}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}train}\PY{p}{,} \PY{n}{origin\PYZus{}images\PYZus{}test}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}test}\PY{p}{,} \PY{n}{origin\PYZus{}images\PYZus{}test}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}test}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{during\PYZus{}time:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.171
+Accuracy: 0.9108
+Accuracy: 0.9254
+Accuracy: 0.944
+Accuracy: 0.9444
+Accuracy: 0.9492
+Accuracy: 0.9562
+Accuracy: 0.9572
+Accuracy: 0.956
+Accuracy: 0.958
+Accuracy: 0.959
+Accuracy: 0.9556
+Accuracy: 0.9608
+Accuracy: 0.9636
+Accuracy: 0.9622
+Accuracy: 0.9638
+Accuracy: 0.963
+Accuracy: 0.9646
+Accuracy: 0.9622
+Accuracy: 0.969
+Accuracy: 0.9654
+Accuracy: 0.9674
+Accuracy: 0.9646
+Accuracy: 0.9696
+Accuracy: 0.9654
+Accuracy: 0.9664
+Accuracy: 0.9668
+Accuracy: 0.9644
+Accuracy: 0.9664
+Accuracy: 0.9672
+Accuracy: 0.9656
+Accuracy: 0.9698
+Accuracy: 0.9666
+Accuracy: 0.9684
+Accuracy: 0.9676
+Accuracy: 0.9704
+Accuracy: 0.9696
+Accuracy: 0.9708
+Accuracy: 0.9672
+Accuracy: 0.9686
+Accuracy: 0.9718
+Accuracy: 0.9678
+Accuracy: 0.9704
+Accuracy: 0.9684
+Accuracy: 0.971
+Accuracy: 0.9732
+Accuracy: 0.9684
+Accuracy: 0.9688
+Accuracy: 0.9704
+Accuracy: 0.9714
+Accuracy: 0.9714
+during\_time: 79.71956300735474
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{hold\PYZus{}out}\PY{p}{(}\PY{n}{images}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{train\PYZus{}percentage}\PY{p}{)}\PY{p}{:}
+            \PY{n}{images\PYZus{}train}\PY{p}{,}\PY{n}{images\PYZus{}test}\PY{p}{,}\PYZbs{}
+            \PY{n}{labels\PYZus{}train}\PY{p}{,}\PY{n}{labels\PYZus{}test}\PY{o}{=}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{images}\PY{p}{,} \PY{n}{labels}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{n}{train\PYZus{}percentage}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{train\PYZus{}and\PYZus{}test2}\PY{p}{(}\PY{n}{images\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{images\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{,}\PY{n}{images\PYZus{}test}\PY{p}{,}\PY{n}{labels\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{total\PYZus{}images}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{origin\PYZus{}images\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+784
+(5000, 784)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} 调用函数用留出法和k折交叉验证法评估模型}
+        \PY{n}{hold\PYZus{}out}\PY{p}{(}\PY{n}{total\PYZus{}images}\PY{p}{,} \PY{n}{total\PYZus{}labels}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.08209091
+Accuracy: 0.90727276
+Accuracy: 0.92645454
+Accuracy: 0.935
+Accuracy: 0.943
+Accuracy: 0.9463636
+Accuracy: 0.95045453
+Accuracy: 0.9482727
+Accuracy: 0.9522727
+Accuracy: 0.9559091
+Accuracy: 0.9541818
+Accuracy: 0.953
+Accuracy: 0.9515455
+Accuracy: 0.95754546
+Accuracy: 0.9589091
+Accuracy: 0.96354544
+Accuracy: 0.95363635
+Accuracy: 0.962
+Accuracy: 0.9656364
+Accuracy: 0.9602727
+Accuracy: 0.96427274
+Accuracy: 0.9681818
+Accuracy: 0.96927273
+Accuracy: 0.96736366
+Accuracy: 0.96763635
+Accuracy: 0.9645454
+Accuracy: 0.96163636
+Accuracy: 0.96754545
+Accuracy: 0.9662727
+Accuracy: 0.967
+Accuracy: 0.9637273
+Accuracy: 0.9637273
+Accuracy: 0.9694545
+Accuracy: 0.96645457
+Accuracy: 0.9696364
+Accuracy: 0.9671818
+Accuracy: 0.96745455
+Accuracy: 0.96909094
+Accuracy: 0.9681818
+Accuracy: 0.9699091
+Accuracy: 0.97145456
+Accuracy: 0.97227275
+Accuracy: 0.96936363
+Accuracy: 0.9696364
+Accuracy: 0.96663636
+Accuracy: 0.97136366
+Accuracy: 0.96845454
+Accuracy: 0.97081816
+Accuracy: 0.96827275
+Accuracy: 0.97172725
+Accuracy: 0.97172725
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{hold\PYZus{}out}\PY{p}{(}\PY{n}{total\PYZus{}images}\PY{p}{,} \PY{n}{total\PYZus{}labels}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.12127273
+Accuracy: 0.8989546
+Accuracy: 0.91804546
+Accuracy: 0.9334091
+Accuracy: 0.9330909
+Accuracy: 0.93872726
+Accuracy: 0.9425909
+Accuracy: 0.9439545
+Accuracy: 0.946
+Accuracy: 0.948
+Accuracy: 0.9447727
+Accuracy: 0.9465455
+Accuracy: 0.95104545
+Accuracy: 0.9534091
+Accuracy: 0.95345455
+Accuracy: 0.9493182
+Accuracy: 0.9538182
+Accuracy: 0.9581364
+Accuracy: 0.9559091
+Accuracy: 0.9579545
+Accuracy: 0.9565909
+Accuracy: 0.9561818
+Accuracy: 0.95295453
+Accuracy: 0.9575
+Accuracy: 0.95668185
+Accuracy: 0.9604091
+Accuracy: 0.9615909
+Accuracy: 0.9606364
+Accuracy: 0.9612727
+Accuracy: 0.9625
+Accuracy: 0.9628182
+Accuracy: 0.9612273
+Accuracy: 0.9635909
+Accuracy: 0.95931816
+Accuracy: 0.96363634
+Accuracy: 0.95759094
+Accuracy: 0.9614546
+Accuracy: 0.96195453
+Accuracy: 0.96254545
+Accuracy: 0.9645
+Accuracy: 0.96522725
+Accuracy: 0.9645909
+Accuracy: 0.9614546
+Accuracy: 0.96509093
+Accuracy: 0.9662273
+Accuracy: 0.9655
+Accuracy: 0.9671818
+Accuracy: 0.9627727
+Accuracy: 0.96686363
+Accuracy: 0.9653636
+Accuracy: 0.9653636
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{hold\PYZus{}out}\PY{p}{(}\PY{n}{total\PYZus{}images}\PY{p}{,} \PY{n}{total\PYZus{}labels}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.099454544
+Accuracy: 0.8800909
+Accuracy: 0.909
+Accuracy: 0.9147879
+Accuracy: 0.92045456
+Accuracy: 0.92857575
+Accuracy: 0.9290606
+Accuracy: 0.9321515
+Accuracy: 0.93133336
+Accuracy: 0.9369091
+Accuracy: 0.93666667
+Accuracy: 0.93742424
+Accuracy: 0.94042426
+Accuracy: 0.9412121
+Accuracy: 0.94069695
+Accuracy: 0.9394242
+Accuracy: 0.9364849
+Accuracy: 0.94266665
+Accuracy: 0.94618183
+Accuracy: 0.94690907
+Accuracy: 0.9456364
+Accuracy: 0.9467273
+Accuracy: 0.9489394
+Accuracy: 0.9486667
+Accuracy: 0.94536364
+Accuracy: 0.94912124
+Accuracy: 0.9470303
+Accuracy: 0.94954544
+Accuracy: 0.9471818
+Accuracy: 0.9460606
+Accuracy: 0.9556364
+Accuracy: 0.95160604
+Accuracy: 0.9522727
+Accuracy: 0.95363635
+Accuracy: 0.9518485
+Accuracy: 0.9529697
+Accuracy: 0.95427275
+Accuracy: 0.9558182
+Accuracy: 0.95869696
+Accuracy: 0.95839393
+Accuracy: 0.9569091
+Accuracy: 0.95736367
+Accuracy: 0.95721215
+Accuracy: 0.95715153
+Accuracy: 0.960303
+Accuracy: 0.9560303
+Accuracy: 0.9588182
+Accuracy: 0.9551212
+Accuracy: 0.9580606
+Accuracy: 0.9577576
+Accuracy: 0.9577576
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{hold\PYZus{}out}\PY{p}{(}\PY{n}{total\PYZus{}images}\PY{p}{,} \PY{n}{total\PYZus{}labels}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.16654545
+Accuracy: 0.85643184
+Accuracy: 0.87520456
+Accuracy: 0.8882046
+Accuracy: 0.8971591
+Accuracy: 0.90338635
+Accuracy: 0.909
+Accuracy: 0.90820456
+Accuracy: 0.9112273
+Accuracy: 0.9135454
+Accuracy: 0.9138409
+Accuracy: 0.9178409
+Accuracy: 0.91870457
+Accuracy: 0.91804546
+Accuracy: 0.91984093
+Accuracy: 0.9217727
+Accuracy: 0.9191591
+Accuracy: 0.9225
+Accuracy: 0.9236591
+Accuracy: 0.9226818
+Accuracy: 0.92397726
+Accuracy: 0.9245682
+Accuracy: 0.92175
+Accuracy: 0.9250682
+Accuracy: 0.9229091
+Accuracy: 0.9311818
+Accuracy: 0.9267955
+Accuracy: 0.9309545
+Accuracy: 0.9285227
+Accuracy: 0.9276364
+Accuracy: 0.9270909
+Accuracy: 0.9365
+Accuracy: 0.9366136
+Accuracy: 0.9345
+Accuracy: 0.9363409
+Accuracy: 0.9359091
+Accuracy: 0.93384093
+Accuracy: 0.9353409
+Accuracy: 0.93529546
+Accuracy: 0.9359773
+Accuracy: 0.92979544
+Accuracy: 0.93131816
+Accuracy: 0.9384773
+Accuracy: 0.93784094
+Accuracy: 0.9334091
+Accuracy: 0.9394091
+Accuracy: 0.93825
+Accuracy: 0.9366136
+Accuracy: 0.9423409
+Accuracy: 0.9407727
+Accuracy: 0.9407727
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{hold\PYZus{}out}\PY{p}{(}\PY{n}{total\PYZus{}images}\PY{p}{,} \PY{n}{total\PYZus{}labels}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.15470707
+Accuracy: 0.81713134
+Accuracy: 0.8583232
+Accuracy: 0.8672323
+Accuracy: 0.87218183
+Accuracy: 0.8753737
+Accuracy: 0.88456565
+Accuracy: 0.8810303
+Accuracy: 0.88638383
+Accuracy: 0.89226264
+Accuracy: 0.8919192
+Accuracy: 0.88953537
+Accuracy: 0.891697
+Accuracy: 0.89270705
+Accuracy: 0.8931313
+Accuracy: 0.89246464
+Accuracy: 0.8942424
+Accuracy: 0.8952121
+Accuracy: 0.8951111
+Accuracy: 0.8951111
+Accuracy: 0.89507073
+Accuracy: 0.8951313
+Accuracy: 0.8951515
+Accuracy: 0.8951313
+Accuracy: 0.8951717
+Accuracy: 0.8951515
+Accuracy: 0.8951515
+Accuracy: 0.8952323
+Accuracy: 0.8952323
+Accuracy: 0.8952525
+Accuracy: 0.8952323
+Accuracy: 0.8951919
+Accuracy: 0.8952121
+Accuracy: 0.8952323
+Accuracy: 0.89533335
+Accuracy: 0.89537376
+Accuracy: 0.89537376
+Accuracy: 0.8954545
+Accuracy: 0.8954545
+Accuracy: 0.8954545
+Accuracy: 0.8954545
+Accuracy: 0.8954343
+Accuracy: 0.89539397
+Accuracy: 0.89547473
+Accuracy: 0.89547473
+Accuracy: 0.89547473
+Accuracy: 0.8954545
+Accuracy: 0.89549494
+Accuracy: 0.8954545
+Accuracy: 0.8954545
+Accuracy: 0.8954545
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{cross\PYZus{}validation}\PY{p}{(}\PY{n}{images}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+             \PY{n}{count1} \PY{o}{=} \PY{l+m+mf}{0.0}
+             \PY{n}{kf} \PY{o}{=} \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits} \PY{o}{=}\PY{n}{k}\PY{p}{,}\PY{n}{shuffle}\PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{for} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{n}{test\PYZus{}index} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{images}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{images\PYZus{}train}\PY{p}{,}\PY{n}{images\PYZus{}test} \PY{o}{=} \PY{n}{images}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,}\PY{n}{images}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                 \PY{n}{labels\PYZus{}train}\PY{p}{,}\PY{n}{labels\PYZus{}test} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,}\PY{n}{labels}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{n}{temp}\PY{o}{=}\PY{n}{train\PYZus{}and\PYZus{}test2}\PY{p}{(}\PY{n}{images\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{images\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{,} \PY{n}{images\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{)}
+                 \PY{n}{count1} \PY{o}{=} \PY{n}{count1} \PY{o}{+} \PY{n}{temp}
+             \PY{n}{average} \PY{o}{=} \PY{n}{count1}\PY{o}{/}\PY{n}{k}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{average}\PY{p}{)}        
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{cross\PYZus{}validation}\PY{p}{(}\PY{n}{origin\PYZus{}images\PYZus{}train}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}train}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train: 1
+Accuracy: 0.1009
+Accuracy: 0.9021
+Accuracy: 0.9238
+Accuracy: 0.9351
+Accuracy: 0.9419
+Accuracy: 0.9486
+Accuracy: 0.9496
+Accuracy: 0.9507
+Accuracy: 0.9507
+Accuracy: 0.9553
+Accuracy: 0.9554
+Accuracy: 0.9558
+Accuracy: 0.956
+Accuracy: 0.9589
+Accuracy: 0.9566
+Accuracy: 0.9583
+Accuracy: 0.9611
+Accuracy: 0.9607
+Accuracy: 0.9602
+Accuracy: 0.9642
+Accuracy: 0.9643
+Accuracy: 0.9602
+Accuracy: 0.9635
+Accuracy: 0.9624
+Accuracy: 0.962
+Accuracy: 0.9658
+Accuracy: 0.9635
+Accuracy: 0.9653
+Accuracy: 0.9649
+Accuracy: 0.9617
+Accuracy: 0.9654
+Accuracy: 0.9664
+Accuracy: 0.9662
+Accuracy: 0.9694
+Accuracy: 0.9679
+Accuracy: 0.97
+Accuracy: 0.9673
+Accuracy: 0.96
+Accuracy: 0.9653
+Accuracy: 0.9676
+Accuracy: 0.9688
+Accuracy: 0.9699
+Accuracy: 0.9694
+Accuracy: 0.9672
+Accuracy: 0.9696
+Accuracy: 0.9679
+Accuracy: 0.971
+Accuracy: 0.9679
+Accuracy: 0.968
+Accuracy: 0.9695
+Accuracy: 0.9695
+Train: 2
+Accuracy: 0.1135
+Accuracy: 0.9088
+Accuracy: 0.9278
+Accuracy: 0.9357
+Accuracy: 0.9381
+Accuracy: 0.9411
+Accuracy: 0.9479
+Accuracy: 0.9495
+Accuracy: 0.9554
+Accuracy: 0.9562
+Accuracy: 0.9559
+Accuracy: 0.9572
+Accuracy: 0.9597
+Accuracy: 0.9488
+Accuracy: 0.9586
+Accuracy: 0.9597
+Accuracy: 0.9594
+Accuracy: 0.9588
+Accuracy: 0.9595
+Accuracy: 0.9621
+Accuracy: 0.9592
+Accuracy: 0.9582
+Accuracy: 0.9599
+Accuracy: 0.9644
+Accuracy: 0.9638
+Accuracy: 0.964
+Accuracy: 0.9659
+Accuracy: 0.96
+Accuracy: 0.9667
+Accuracy: 0.9664
+Accuracy: 0.9672
+Accuracy: 0.9684
+Accuracy: 0.968
+Accuracy: 0.9672
+Accuracy: 0.9673
+Accuracy: 0.9671
+Accuracy: 0.966
+Accuracy: 0.9672
+Accuracy: 0.9713
+Accuracy: 0.9707
+Accuracy: 0.9688
+Accuracy: 0.9669
+Accuracy: 0.9643
+Accuracy: 0.9681
+Accuracy: 0.9681
+Accuracy: 0.9708
+Accuracy: 0.9643
+Accuracy: 0.969
+Accuracy: 0.9677
+Accuracy: 0.9683
+Accuracy: 0.9683
+Train: 3
+Accuracy: 0.116
+Accuracy: 0.9047
+Accuracy: 0.9274
+Accuracy: 0.9315
+Accuracy: 0.9391
+Accuracy: 0.9455
+Accuracy: 0.9501
+Accuracy: 0.9523
+Accuracy: 0.9511
+Accuracy: 0.9521
+Accuracy: 0.9526
+Accuracy: 0.9544
+Accuracy: 0.9571
+Accuracy: 0.9517
+Accuracy: 0.9568
+Accuracy: 0.961
+Accuracy: 0.9608
+Accuracy: 0.9629
+Accuracy: 0.9596
+Accuracy: 0.9646
+Accuracy: 0.9652
+Accuracy: 0.9657
+Accuracy: 0.9656
+Accuracy: 0.9678
+Accuracy: 0.9653
+Accuracy: 0.9662
+Accuracy: 0.9626
+Accuracy: 0.968
+Accuracy: 0.9689
+Accuracy: 0.9685
+Accuracy: 0.9679
+Accuracy: 0.9683
+Accuracy: 0.9682
+Accuracy: 0.9712
+Accuracy: 0.9687
+Accuracy: 0.9679
+Accuracy: 0.969
+Accuracy: 0.97
+Accuracy: 0.9673
+Accuracy: 0.9692
+Accuracy: 0.9702
+Accuracy: 0.9665
+Accuracy: 0.9716
+Accuracy: 0.9695
+Accuracy: 0.9721
+Accuracy: 0.9731
+Accuracy: 0.9658
+Accuracy: 0.9704
+Accuracy: 0.9706
+Accuracy: 0.972
+Accuracy: 0.972
+Train: 4
+Accuracy: 0.1129
+Accuracy: 0.9097
+Accuracy: 0.9238
+Accuracy: 0.9357
+Accuracy: 0.9373
+Accuracy: 0.9429
+Accuracy: 0.9434
+Accuracy: 0.9483
+Accuracy: 0.954
+Accuracy: 0.9534
+Accuracy: 0.9559
+Accuracy: 0.9576
+Accuracy: 0.9509
+Accuracy: 0.9533
+Accuracy: 0.9581
+Accuracy: 0.9558
+Accuracy: 0.9592
+Accuracy: 0.9579
+Accuracy: 0.9585
+Accuracy: 0.9571
+Accuracy: 0.9569
+Accuracy: 0.9625
+Accuracy: 0.9602
+Accuracy: 0.965
+Accuracy: 0.9653
+Accuracy: 0.965
+Accuracy: 0.9631
+Accuracy: 0.9606
+Accuracy: 0.9648
+Accuracy: 0.9639
+Accuracy: 0.9625
+Accuracy: 0.9627
+Accuracy: 0.963
+Accuracy: 0.9686
+Accuracy: 0.9696
+Accuracy: 0.9691
+Accuracy: 0.9669
+Accuracy: 0.9636
+Accuracy: 0.9641
+Accuracy: 0.9655
+Accuracy: 0.9589
+Accuracy: 0.9691
+Accuracy: 0.9672
+Accuracy: 0.9695
+Accuracy: 0.9679
+Accuracy: 0.9688
+Accuracy: 0.9669
+Accuracy: 0.9598
+Accuracy: 0.9712
+Accuracy: 0.9684
+Accuracy: 0.9684
+Train: 5
+Accuracy: 0.1332
+Accuracy: 0.9085
+Accuracy: 0.9291
+Accuracy: 0.9363
+Accuracy: 0.944
+Accuracy: 0.9472
+Accuracy: 0.9484
+Accuracy: 0.9516
+Accuracy: 0.9468
+Accuracy: 0.959
+Accuracy: 0.9556
+Accuracy: 0.9582
+Accuracy: 0.9572
+Accuracy: 0.9564
+Accuracy: 0.9592
+Accuracy: 0.9624
+Accuracy: 0.9607
+Accuracy: 0.9647
+Accuracy: 0.9595
+Accuracy: 0.9622
+Accuracy: 0.9649
+Accuracy: 0.9615
+Accuracy: 0.9673
+Accuracy: 0.9657
+Accuracy: 0.9648
+Accuracy: 0.9675
+Accuracy: 0.9651
+Accuracy: 0.9653
+Accuracy: 0.9649
+Accuracy: 0.9675
+Accuracy: 0.9669
+Accuracy: 0.9655
+Accuracy: 0.9695
+Accuracy: 0.9686
+Accuracy: 0.9688
+Accuracy: 0.9674
+Accuracy: 0.9687
+Accuracy: 0.9714
+Accuracy: 0.9692
+Accuracy: 0.9666
+Accuracy: 0.9702
+Accuracy: 0.9686
+Accuracy: 0.9716
+Accuracy: 0.9683
+Accuracy: 0.9694
+Accuracy: 0.9648
+Accuracy: 0.972
+Accuracy: 0.9674
+Accuracy: 0.971
+Accuracy: 0.9724
+Accuracy: 0.9724
+Average: 0.9701200008392334
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{cross\PYZus{}validation}\PY{p}{(}\PY{n}{origin\PYZus{}images\PYZus{}train}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}train}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train: 1
+Accuracy: 0.0962
+Accuracy: 0.8984
+Accuracy: 0.9222
+Accuracy: 0.9364
+Accuracy: 0.9392
+Accuracy: 0.945
+Accuracy: 0.9448
+Accuracy: 0.9486
+Accuracy: 0.9476
+Accuracy: 0.9558
+Accuracy: 0.958
+Accuracy: 0.9556
+Accuracy: 0.9596
+Accuracy: 0.9606
+Accuracy: 0.9568
+Accuracy: 0.9564
+Accuracy: 0.9634
+Accuracy: 0.9598
+Accuracy: 0.9636
+Accuracy: 0.9622
+Accuracy: 0.9626
+Accuracy: 0.9606
+Accuracy: 0.9596
+Accuracy: 0.9638
+Accuracy: 0.9644
+Accuracy: 0.9648
+Accuracy: 0.9608
+Accuracy: 0.9624
+Accuracy: 0.966
+Accuracy: 0.9664
+Accuracy: 0.9698
+Accuracy: 0.9696
+Accuracy: 0.9656
+Accuracy: 0.968
+Accuracy: 0.9686
+Accuracy: 0.965
+Accuracy: 0.965
+Accuracy: 0.9674
+Accuracy: 0.9708
+Accuracy: 0.9704
+Accuracy: 0.969
+Accuracy: 0.9666
+Accuracy: 0.9698
+Accuracy: 0.9668
+Accuracy: 0.969
+Accuracy: 0.97
+Accuracy: 0.9686
+Accuracy: 0.9702
+Accuracy: 0.9666
+Accuracy: 0.9686
+Accuracy: 0.9686
+Train: 2
+Accuracy: 0.1574
+Accuracy: 0.9112
+Accuracy: 0.9256
+Accuracy: 0.9374
+Accuracy: 0.947
+Accuracy: 0.9478
+Accuracy: 0.954
+Accuracy: 0.9548
+Accuracy: 0.9526
+Accuracy: 0.9568
+Accuracy: 0.9572
+Accuracy: 0.9558
+Accuracy: 0.9566
+Accuracy: 0.9584
+Accuracy: 0.9618
+Accuracy: 0.9618
+Accuracy: 0.963
+Accuracy: 0.9592
+Accuracy: 0.967
+Accuracy: 0.961
+Accuracy: 0.963
+Accuracy: 0.962
+Accuracy: 0.963
+Accuracy: 0.9634
+Accuracy: 0.9678
+Accuracy: 0.9674
+Accuracy: 0.9676
+Accuracy: 0.9662
+Accuracy: 0.9714
+Accuracy: 0.968
+Accuracy: 0.9664
+Accuracy: 0.9674
+Accuracy: 0.9672
+Accuracy: 0.9674
+Accuracy: 0.9674
+Accuracy: 0.965
+Accuracy: 0.9716
+Accuracy: 0.9708
+Accuracy: 0.9698
+Accuracy: 0.9724
+Accuracy: 0.9716
+Accuracy: 0.9706
+Accuracy: 0.9698
+Accuracy: 0.9686
+Accuracy: 0.9674
+Accuracy: 0.9726
+Accuracy: 0.9732
+Accuracy: 0.9738
+Accuracy: 0.971
+Accuracy: 0.9704
+Accuracy: 0.9704
+Train: 3
+Accuracy: 0.1394
+Accuracy: 0.9028
+Accuracy: 0.9262
+Accuracy: 0.931
+Accuracy: 0.9362
+Accuracy: 0.9448
+Accuracy: 0.9464
+Accuracy: 0.9516
+Accuracy: 0.9522
+Accuracy: 0.9576
+Accuracy: 0.9564
+Accuracy: 0.9562
+Accuracy: 0.9552
+Accuracy: 0.957
+Accuracy: 0.958
+Accuracy: 0.9654
+Accuracy: 0.9628
+Accuracy: 0.9594
+Accuracy: 0.964
+Accuracy: 0.9652
+Accuracy: 0.962
+Accuracy: 0.9674
+Accuracy: 0.966
+Accuracy: 0.96
+Accuracy: 0.9674
+Accuracy: 0.9664
+Accuracy: 0.9636
+Accuracy: 0.9692
+Accuracy: 0.965
+Accuracy: 0.9742
+Accuracy: 0.9682
+Accuracy: 0.9614
+Accuracy: 0.969
+Accuracy: 0.9666
+Accuracy: 0.972
+Accuracy: 0.968
+Accuracy: 0.971
+Accuracy: 0.9664
+Accuracy: 0.9712
+Accuracy: 0.9686
+Accuracy: 0.9722
+Accuracy: 0.9736
+Accuracy: 0.97
+Accuracy: 0.9696
+Accuracy: 0.971
+Accuracy: 0.9688
+Accuracy: 0.9712
+Accuracy: 0.9734
+Accuracy: 0.97
+Accuracy: 0.9702
+Accuracy: 0.9702
+Train: 4
+Accuracy: 0.168
+Accuracy: 0.907
+Accuracy: 0.9404
+Accuracy: 0.942
+Accuracy: 0.9456
+Accuracy: 0.9528
+Accuracy: 0.952
+Accuracy: 0.9572
+Accuracy: 0.959
+Accuracy: 0.96
+Accuracy: 0.9612
+Accuracy: 0.9604
+Accuracy: 0.9584
+Accuracy: 0.9618
+Accuracy: 0.9624
+Accuracy: 0.9652
+Accuracy: 0.9598
+Accuracy: 0.9674
+Accuracy: 0.965
+Accuracy: 0.9668
+Accuracy: 0.9658
+Accuracy: 0.9656
+Accuracy: 0.9678
+Accuracy: 0.9666
+Accuracy: 0.9648
+Accuracy: 0.9682
+Accuracy: 0.968
+Accuracy: 0.9692
+Accuracy: 0.9678
+Accuracy: 0.9696
+Accuracy: 0.9724
+Accuracy: 0.9676
+Accuracy: 0.967
+Accuracy: 0.9702
+Accuracy: 0.9696
+Accuracy: 0.9708
+Accuracy: 0.9732
+Accuracy: 0.9676
+Accuracy: 0.9712
+Accuracy: 0.9758
+Accuracy: 0.9752
+Accuracy: 0.9752
+Accuracy: 0.974
+Accuracy: 0.9728
+Accuracy: 0.9714
+Accuracy: 0.9702
+Accuracy: 0.973
+Accuracy: 0.972
+Accuracy: 0.9744
+Accuracy: 0.9756
+Accuracy: 0.9756
+Train: 5
+Accuracy: 0.1716
+Accuracy: 0.9146
+Accuracy: 0.934
+Accuracy: 0.943
+Accuracy: 0.9468
+Accuracy: 0.9508
+Accuracy: 0.9528
+Accuracy: 0.9548
+Accuracy: 0.9538
+Accuracy: 0.9626
+Accuracy: 0.9624
+Accuracy: 0.957
+Accuracy: 0.9592
+Accuracy: 0.9568
+Accuracy: 0.9608
+Accuracy: 0.9658
+Accuracy: 0.9592
+Accuracy: 0.9612
+Accuracy: 0.9634
+Accuracy: 0.9658
+Accuracy: 0.9648
+Accuracy: 0.9688
+Accuracy: 0.963
+Accuracy: 0.9578
+Accuracy: 0.97
+Accuracy: 0.9674
+Accuracy: 0.9658
+Accuracy: 0.9672
+Accuracy: 0.967
+Accuracy: 0.9662
+Accuracy: 0.97
+Accuracy: 0.9644
+Accuracy: 0.9742
+Accuracy: 0.9708
+Accuracy: 0.972
+Accuracy: 0.9714
+Accuracy: 0.97
+Accuracy: 0.9708
+Accuracy: 0.9668
+Accuracy: 0.975
+Accuracy: 0.9724
+Accuracy: 0.9726
+Accuracy: 0.9756
+Accuracy: 0.972
+Accuracy: 0.9728
+Accuracy: 0.9718
+Accuracy: 0.97
+Accuracy: 0.9716
+Accuracy: 0.9734
+Accuracy: 0.9678
+Accuracy: 0.9678
+Train: 6
+Accuracy: 0.0772
+Accuracy: 0.9026
+Accuracy: 0.9178
+Accuracy: 0.9364
+Accuracy: 0.9442
+Accuracy: 0.9446
+Accuracy: 0.9498
+Accuracy: 0.9494
+Accuracy: 0.952
+Accuracy: 0.9536
+Accuracy: 0.9544
+Accuracy: 0.9556
+Accuracy: 0.9554
+Accuracy: 0.9548
+Accuracy: 0.9626
+Accuracy: 0.9586
+Accuracy: 0.9586
+Accuracy: 0.9624
+Accuracy: 0.9568
+Accuracy: 0.9642
+Accuracy: 0.9636
+Accuracy: 0.9612
+Accuracy: 0.9606
+Accuracy: 0.961
+Accuracy: 0.9638
+Accuracy: 0.9652
+Accuracy: 0.9654
+Accuracy: 0.9648
+Accuracy: 0.9652
+Accuracy: 0.9646
+Accuracy: 0.9668
+Accuracy: 0.9674
+Accuracy: 0.9616
+Accuracy: 0.9656
+Accuracy: 0.9688
+Accuracy: 0.9648
+Accuracy: 0.9672
+Accuracy: 0.973
+Accuracy: 0.9718
+Accuracy: 0.9714
+Accuracy: 0.9652
+Accuracy: 0.9704
+Accuracy: 0.9674
+Accuracy: 0.9692
+Accuracy: 0.97
+Accuracy: 0.9678
+Accuracy: 0.9698
+Accuracy: 0.9708
+Accuracy: 0.9726
+Accuracy: 0.9688
+Accuracy: 0.9688
+Train: 7
+Accuracy: 0.1152
+Accuracy: 0.9154
+Accuracy: 0.9214
+Accuracy: 0.9356
+Accuracy: 0.9426
+Accuracy: 0.9466
+Accuracy: 0.9496
+Accuracy: 0.9534
+Accuracy: 0.9536
+Accuracy: 0.9542
+Accuracy: 0.957
+Accuracy: 0.9584
+Accuracy: 0.9578
+Accuracy: 0.9588
+Accuracy: 0.9554
+Accuracy: 0.9606
+Accuracy: 0.9618
+Accuracy: 0.9616
+Accuracy: 0.9624
+Accuracy: 0.964
+Accuracy: 0.9648
+Accuracy: 0.9652
+Accuracy: 0.9666
+Accuracy: 0.9644
+Accuracy: 0.9658
+Accuracy: 0.9678
+Accuracy: 0.9692
+Accuracy: 0.9676
+Accuracy: 0.9704
+Accuracy: 0.9702
+Accuracy: 0.9684
+Accuracy: 0.9672
+Accuracy: 0.9706
+Accuracy: 0.9682
+Accuracy: 0.9708
+Accuracy: 0.9714
+Accuracy: 0.9698
+Accuracy: 0.971
+Accuracy: 0.9722
+Accuracy: 0.9714
+Accuracy: 0.9698
+Accuracy: 0.973
+Accuracy: 0.9654
+Accuracy: 0.9674
+Accuracy: 0.9722
+Accuracy: 0.9726
+Accuracy: 0.9736
+Accuracy: 0.9752
+Accuracy: 0.9744
+Accuracy: 0.9712
+Accuracy: 0.9712
+Train: 8
+Accuracy: 0.1024
+Accuracy: 0.9088
+Accuracy: 0.9304
+Accuracy: 0.9432
+Accuracy: 0.9502
+Accuracy: 0.9352
+Accuracy: 0.9556
+Accuracy: 0.953
+Accuracy: 0.9598
+Accuracy: 0.9558
+Accuracy: 0.9572
+Accuracy: 0.959
+Accuracy: 0.964
+Accuracy: 0.96
+Accuracy: 0.9588
+Accuracy: 0.961
+Accuracy: 0.965
+Accuracy: 0.9626
+Accuracy: 0.9634
+Accuracy: 0.9656
+Accuracy: 0.968
+Accuracy: 0.9664
+Accuracy: 0.966
+Accuracy: 0.9634
+Accuracy: 0.9656
+Accuracy: 0.9662
+Accuracy: 0.9672
+Accuracy: 0.9698
+Accuracy: 0.9678
+Accuracy: 0.9696
+Accuracy: 0.9684
+Accuracy: 0.9704
+Accuracy: 0.9724
+Accuracy: 0.9672
+Accuracy: 0.9696
+Accuracy: 0.9716
+Accuracy: 0.9692
+Accuracy: 0.9736
+Accuracy: 0.9682
+Accuracy: 0.9712
+Accuracy: 0.9746
+Accuracy: 0.9722
+Accuracy: 0.974
+Accuracy: 0.972
+Accuracy: 0.9736
+Accuracy: 0.974
+Accuracy: 0.973
+Accuracy: 0.9732
+Accuracy: 0.976
+Accuracy: 0.9716
+Accuracy: 0.9716
+Train: 9
+Accuracy: 0.0712
+Accuracy: 0.9118
+Accuracy: 0.9292
+Accuracy: 0.934
+Accuracy: 0.944
+Accuracy: 0.9424
+Accuracy: 0.9438
+Accuracy: 0.9518
+Accuracy: 0.9498
+Accuracy: 0.9564
+Accuracy: 0.9578
+Accuracy: 0.955
+Accuracy: 0.9546
+Accuracy: 0.9564
+Accuracy: 0.9584
+Accuracy: 0.9622
+Accuracy: 0.9626
+Accuracy: 0.9618
+Accuracy: 0.9618
+Accuracy: 0.9644
+Accuracy: 0.9652
+Accuracy: 0.963
+Accuracy: 0.9638
+Accuracy: 0.9594
+Accuracy: 0.9672
+Accuracy: 0.9656
+Accuracy: 0.9668
+Accuracy: 0.9704
+Accuracy: 0.967
+Accuracy: 0.9674
+Accuracy: 0.9658
+Accuracy: 0.9674
+Accuracy: 0.9678
+Accuracy: 0.9704
+Accuracy: 0.9696
+Accuracy: 0.9666
+Accuracy: 0.9704
+Accuracy: 0.9666
+Accuracy: 0.971
+Accuracy: 0.9688
+Accuracy: 0.9686
+Accuracy: 0.9732
+Accuracy: 0.9692
+Accuracy: 0.9696
+Accuracy: 0.9692
+Accuracy: 0.9672
+Accuracy: 0.9706
+Accuracy: 0.9712
+Accuracy: 0.973
+Accuracy: 0.9704
+Accuracy: 0.9704
+Train: 10
+Accuracy: 0.1288
+Accuracy: 0.9118
+Accuracy: 0.9288
+Accuracy: 0.936
+Accuracy: 0.939
+Accuracy: 0.9456
+Accuracy: 0.9504
+Accuracy: 0.946
+Accuracy: 0.9478
+Accuracy: 0.955
+Accuracy: 0.9474
+Accuracy: 0.9542
+Accuracy: 0.9576
+Accuracy: 0.9576
+Accuracy: 0.9606
+Accuracy: 0.9614
+Accuracy: 0.9632
+Accuracy: 0.962
+Accuracy: 0.9588
+Accuracy: 0.9648
+Accuracy: 0.9598
+Accuracy: 0.9624
+Accuracy: 0.9658
+Accuracy: 0.9638
+Accuracy: 0.9666
+Accuracy: 0.9662
+Accuracy: 0.9684
+Accuracy: 0.962
+Accuracy: 0.9664
+Accuracy: 0.9672
+Accuracy: 0.963
+Accuracy: 0.9612
+Accuracy: 0.9664
+Accuracy: 0.966
+Accuracy: 0.9652
+Accuracy: 0.9618
+Accuracy: 0.9636
+Accuracy: 0.9658
+Accuracy: 0.9652
+Accuracy: 0.9674
+Accuracy: 0.9696
+Accuracy: 0.9676
+Accuracy: 0.9698
+Accuracy: 0.9672
+Accuracy: 0.9674
+Accuracy: 0.9662
+Accuracy: 0.968
+Accuracy: 0.969
+Accuracy: 0.9712
+Accuracy: 0.9704
+Accuracy: 0.9704
+Average: 0.9704999923706055
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+         \PY{n}{start\PYZus{}time}\PY{o}{=}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cross\PYZus{}validation}\PY{p}{(}\PY{n}{origin\PYZus{}images\PYZus{}train}\PY{p}{,} \PY{n}{origin\PYZus{}labels\PYZus{}train}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{during\PYZus{}time:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train: 1
+Accuracy: 0.18476304
+Accuracy: 0.9085183
+Accuracy: 0.925015
+Accuracy: 0.9442112
+Accuracy: 0.9466107
+Accuracy: 0.9517097
+Accuracy: 0.9490102
+Accuracy: 0.95080984
+Accuracy: 0.9514097
+Accuracy: 0.9529094
+Accuracy: 0.9568086
+Accuracy: 0.9577085
+Accuracy: 0.9589082
+Accuracy: 0.9577085
+Accuracy: 0.96340734
+Accuracy: 0.9493101
+Accuracy: 0.9628074
+Accuracy: 0.964907
+Accuracy: 0.9628074
+Accuracy: 0.97210556
+Accuracy: 0.9679064
+Accuracy: 0.9604079
+Accuracy: 0.9703059
+Accuracy: 0.9703059
+Accuracy: 0.9670066
+Accuracy: 0.96730655
+Accuracy: 0.9643071
+Accuracy: 0.9661068
+Accuracy: 0.9664067
+Accuracy: 0.97060585
+Accuracy: 0.9640072
+Accuracy: 0.9670066
+Accuracy: 0.9712058
+Accuracy: 0.96670663
+Accuracy: 0.96970606
+Accuracy: 0.9670066
+Accuracy: 0.97210556
+Accuracy: 0.9691062
+Accuracy: 0.9664067
+Accuracy: 0.97090584
+Accuracy: 0.96670663
+Accuracy: 0.97180563
+Accuracy: 0.97480506
+Accuracy: 0.97210556
+Accuracy: 0.9766047
+Accuracy: 0.9736053
+Accuracy: 0.9715057
+Accuracy: 0.9739052
+Accuracy: 0.9694061
+Accuracy: 0.97210556
+Accuracy: 0.97210556
+Train: 2
+Accuracy: 0.13437313
+Accuracy: 0.9160168
+Accuracy: 0.9343131
+Accuracy: 0.9379124
+Accuracy: 0.94571084
+Accuracy: 0.9427115
+Accuracy: 0.94841033
+Accuracy: 0.9520096
+Accuracy: 0.9541092
+Accuracy: 0.9553089
+Accuracy: 0.95860827
+Accuracy: 0.96340734
+Accuracy: 0.9616077
+Accuracy: 0.96220756
+Accuracy: 0.9619076
+Accuracy: 0.9625075
+Accuracy: 0.96130776
+Accuracy: 0.96580684
+Accuracy: 0.96730655
+Accuracy: 0.9676065
+Accuracy: 0.96880627
+Accuracy: 0.96970606
+Accuracy: 0.9631074
+Accuracy: 0.96340734
+Accuracy: 0.96880627
+Accuracy: 0.9694061
+Accuracy: 0.9712058
+Accuracy: 0.970006
+Accuracy: 0.9664067
+Accuracy: 0.9712058
+Accuracy: 0.97090584
+Accuracy: 0.97180563
+Accuracy: 0.9685063
+Accuracy: 0.96970606
+Accuracy: 0.970006
+Accuracy: 0.97330534
+Accuracy: 0.97210556
+Accuracy: 0.9691062
+Accuracy: 0.9691062
+Accuracy: 0.9727055
+Accuracy: 0.97570485
+Accuracy: 0.9715057
+Accuracy: 0.9694061
+Accuracy: 0.97210556
+Accuracy: 0.97330534
+Accuracy: 0.97210556
+Accuracy: 0.97570485
+Accuracy: 0.97090584
+Accuracy: 0.97090584
+Accuracy: 0.97180563
+Accuracy: 0.97180563
+Train: 3
+Accuracy: 0.1259748
+Accuracy: 0.9196161
+Accuracy: 0.92771447
+Accuracy: 0.9409118
+Accuracy: 0.9475105
+Accuracy: 0.9526095
+Accuracy: 0.9529094
+Accuracy: 0.94961005
+Accuracy: 0.9580084
+Accuracy: 0.9553089
+Accuracy: 0.9619076
+Accuracy: 0.960108
+Accuracy: 0.9604079
+Accuracy: 0.96370727
+Accuracy: 0.9631074
+Accuracy: 0.96220756
+Accuracy: 0.9643071
+Accuracy: 0.9640072
+Accuracy: 0.96220756
+Accuracy: 0.9640072
+Accuracy: 0.9664067
+Accuracy: 0.9670066
+Accuracy: 0.96730655
+Accuracy: 0.9679064
+Accuracy: 0.9694061
+Accuracy: 0.965207
+Accuracy: 0.96730655
+Accuracy: 0.96970606
+Accuracy: 0.9685063
+Accuracy: 0.9712058
+Accuracy: 0.9724055
+Accuracy: 0.9730054
+Accuracy: 0.97060585
+Accuracy: 0.970006
+Accuracy: 0.97180563
+Accuracy: 0.9703059
+Accuracy: 0.97330534
+Accuracy: 0.96670663
+Accuracy: 0.96730655
+Accuracy: 0.97210556
+Accuracy: 0.9745051
+Accuracy: 0.9766047
+Accuracy: 0.9730054
+Accuracy: 0.9715057
+Accuracy: 0.970006
+Accuracy: 0.9745051
+Accuracy: 0.96970606
+Accuracy: 0.9694061
+Accuracy: 0.97060585
+Accuracy: 0.97570485
+Accuracy: 0.97570485
+Train: 4
+Accuracy: 0.098680265
+Accuracy: 0.9145171
+Accuracy: 0.9325135
+Accuracy: 0.9406119
+Accuracy: 0.94211155
+Accuracy: 0.94571084
+Accuracy: 0.9445111
+Accuracy: 0.95320934
+Accuracy: 0.9481104
+Accuracy: 0.95021
+Accuracy: 0.9529094
+Accuracy: 0.9535093
+Accuracy: 0.95710856
+Accuracy: 0.95740855
+Accuracy: 0.9565087
+Accuracy: 0.9628074
+Accuracy: 0.9625075
+Accuracy: 0.96130776
+Accuracy: 0.95620877
+Accuracy: 0.9610078
+Accuracy: 0.96670663
+Accuracy: 0.95920813
+Accuracy: 0.9664067
+Accuracy: 0.96220756
+Accuracy: 0.9643071
+Accuracy: 0.96460706
+Accuracy: 0.9640072
+Accuracy: 0.9670066
+Accuracy: 0.96460706
+Accuracy: 0.9661068
+Accuracy: 0.96670663
+Accuracy: 0.9619076
+Accuracy: 0.96220756
+Accuracy: 0.9691062
+Accuracy: 0.96820635
+Accuracy: 0.9670066
+Accuracy: 0.9625075
+Accuracy: 0.9679064
+Accuracy: 0.9679064
+Accuracy: 0.97060585
+Accuracy: 0.97090584
+Accuracy: 0.97210556
+Accuracy: 0.97060585
+Accuracy: 0.9691062
+Accuracy: 0.9712058
+Accuracy: 0.97180563
+Accuracy: 0.97180563
+Accuracy: 0.97180563
+Accuracy: 0.97090584
+Accuracy: 0.96970606
+Accuracy: 0.96970606
+Train: 5
+Accuracy: 0.09808038
+Accuracy: 0.9166167
+Accuracy: 0.9334133
+Accuracy: 0.9415117
+Accuracy: 0.9439112
+Accuracy: 0.9415117
+Accuracy: 0.94721055
+Accuracy: 0.95380926
+Accuracy: 0.9556089
+Accuracy: 0.9544091
+Accuracy: 0.9577085
+Accuracy: 0.9568086
+Accuracy: 0.95830834
+Accuracy: 0.9589082
+Accuracy: 0.95830834
+Accuracy: 0.95830834
+Accuracy: 0.95980805
+Accuracy: 0.96070784
+Accuracy: 0.9610078
+Accuracy: 0.9640072
+Accuracy: 0.96130776
+Accuracy: 0.9655069
+Accuracy: 0.96460706
+Accuracy: 0.960108
+Accuracy: 0.9640072
+Accuracy: 0.9610078
+Accuracy: 0.9664067
+Accuracy: 0.96580684
+Accuracy: 0.9661068
+Accuracy: 0.9661068
+Accuracy: 0.9664067
+Accuracy: 0.9643071
+Accuracy: 0.9679064
+Accuracy: 0.9619076
+Accuracy: 0.96880627
+Accuracy: 0.96730655
+Accuracy: 0.9679064
+Accuracy: 0.9676065
+Accuracy: 0.9655069
+Accuracy: 0.9691062
+Accuracy: 0.96820635
+Accuracy: 0.9703059
+Accuracy: 0.96880627
+Accuracy: 0.9694061
+Accuracy: 0.96670663
+Accuracy: 0.97420514
+Accuracy: 0.96820635
+Accuracy: 0.9715057
+Accuracy: 0.97060585
+Accuracy: 0.9679064
+Accuracy: 0.9679064
+Train: 6
+Accuracy: 0.14161415
+Accuracy: 0.9189919
+Accuracy: 0.9306931
+Accuracy: 0.939994
+Accuracy: 0.9489949
+Accuracy: 0.95169514
+Accuracy: 0.9552955
+Accuracy: 0.9585959
+Accuracy: 0.96159613
+Accuracy: 0.9591959
+Accuracy: 0.9618962
+Accuracy: 0.9639964
+Accuracy: 0.9618962
+Accuracy: 0.9651965
+Accuracy: 0.96639663
+Accuracy: 0.96939695
+Accuracy: 0.96759677
+Accuracy: 0.97179717
+Accuracy: 0.9711971
+Accuracy: 0.96639663
+Accuracy: 0.9657966
+Accuracy: 0.9708971
+Accuracy: 0.9711971
+Accuracy: 0.969697
+Accuracy: 0.97329736
+Accuracy: 0.9720972
+Accuracy: 0.9678968
+Accuracy: 0.97329736
+Accuracy: 0.9690969
+Accuracy: 0.9738974
+Accuracy: 0.9678968
+Accuracy: 0.9708971
+Accuracy: 0.9729973
+Accuracy: 0.9738974
+Accuracy: 0.9729973
+Accuracy: 0.9657966
+Accuracy: 0.9762976
+Accuracy: 0.9759976
+Accuracy: 0.9705971
+Accuracy: 0.9708971
+Accuracy: 0.97419745
+Accuracy: 0.9759976
+Accuracy: 0.9720972
+Accuracy: 0.97659767
+Accuracy: 0.97239727
+Accuracy: 0.97449744
+Accuracy: 0.9759976
+Accuracy: 0.9729973
+Accuracy: 0.97659767
+Accuracy: 0.97179717
+Accuracy: 0.97179717
+Train: 7
+Accuracy: 0.10861086
+Accuracy: 0.9054906
+Accuracy: 0.9267927
+Accuracy: 0.93519354
+Accuracy: 0.9357936
+Accuracy: 0.9459946
+Accuracy: 0.94989496
+Accuracy: 0.9510951
+Accuracy: 0.9543954
+Accuracy: 0.9537954
+Accuracy: 0.9567957
+Accuracy: 0.95739573
+Accuracy: 0.96219623
+Accuracy: 0.9585959
+Accuracy: 0.96069604
+Accuracy: 0.9627963
+Accuracy: 0.9639964
+Accuracy: 0.9639964
+Accuracy: 0.9657966
+Accuracy: 0.9672967
+Accuracy: 0.96939695
+Accuracy: 0.96939695
+Accuracy: 0.96369636
+Accuracy: 0.9690969
+Accuracy: 0.96849686
+Accuracy: 0.9747975
+Accuracy: 0.9672967
+Accuracy: 0.97179717
+Accuracy: 0.97359735
+Accuracy: 0.9729973
+Accuracy: 0.9720972
+Accuracy: 0.9753975
+Accuracy: 0.9648965
+Accuracy: 0.96939695
+Accuracy: 0.969997
+Accuracy: 0.9768977
+Accuracy: 0.97239727
+Accuracy: 0.97419745
+Accuracy: 0.9711971
+Accuracy: 0.97269726
+Accuracy: 0.9711971
+Accuracy: 0.9705971
+Accuracy: 0.9762976
+Accuracy: 0.9747975
+Accuracy: 0.9708971
+Accuracy: 0.9762976
+Accuracy: 0.9768977
+Accuracy: 0.9762976
+Accuracy: 0.9753975
+Accuracy: 0.9753975
+Accuracy: 0.9753975
+Train: 8
+Accuracy: 0.107410744
+Accuracy: 0.9150915
+Accuracy: 0.93939394
+Accuracy: 0.9411941
+Accuracy: 0.949595
+Accuracy: 0.9492949
+Accuracy: 0.95229524
+Accuracy: 0.95739573
+Accuracy: 0.9552955
+Accuracy: 0.95739573
+Accuracy: 0.95949596
+Accuracy: 0.9561956
+Accuracy: 0.9585959
+Accuracy: 0.9591959
+Accuracy: 0.95949596
+Accuracy: 0.9627963
+Accuracy: 0.9651965
+Accuracy: 0.9648965
+Accuracy: 0.96459645
+Accuracy: 0.9627963
+Accuracy: 0.95739573
+Accuracy: 0.9624962
+Accuracy: 0.9666967
+Accuracy: 0.9687969
+Accuracy: 0.9630963
+Accuracy: 0.97029704
+Accuracy: 0.9690969
+Accuracy: 0.9630963
+Accuracy: 0.9678968
+Accuracy: 0.9690969
+Accuracy: 0.9651965
+Accuracy: 0.9687969
+Accuracy: 0.97029704
+Accuracy: 0.97029704
+Accuracy: 0.9708971
+Accuracy: 0.9666967
+Accuracy: 0.9720972
+Accuracy: 0.9705971
+Accuracy: 0.97269726
+Accuracy: 0.97509754
+Accuracy: 0.969697
+Accuracy: 0.96939695
+Accuracy: 0.9714972
+Accuracy: 0.9687969
+Accuracy: 0.969997
+Accuracy: 0.969697
+Accuracy: 0.97419745
+Accuracy: 0.97269726
+Accuracy: 0.9720972
+Accuracy: 0.96369636
+Accuracy: 0.96369636
+Train: 9
+Accuracy: 0.11011101
+Accuracy: 0.9108911
+Accuracy: 0.930093
+Accuracy: 0.94179416
+Accuracy: 0.9420942
+Accuracy: 0.9471947
+Accuracy: 0.9558956
+Accuracy: 0.95169514
+Accuracy: 0.95739573
+Accuracy: 0.95649564
+Accuracy: 0.9582958
+Accuracy: 0.95649564
+Accuracy: 0.95559555
+Accuracy: 0.96219623
+Accuracy: 0.96159613
+Accuracy: 0.9633963
+Accuracy: 0.9576958
+Accuracy: 0.9558956
+Accuracy: 0.9633963
+Accuracy: 0.9630963
+Accuracy: 0.9660966
+Accuracy: 0.9669967
+Accuracy: 0.9630963
+Accuracy: 0.9648965
+Accuracy: 0.9690969
+Accuracy: 0.97179717
+Accuracy: 0.969697
+Accuracy: 0.96459645
+Accuracy: 0.9708971
+Accuracy: 0.9705971
+Accuracy: 0.9687969
+Accuracy: 0.97359735
+Accuracy: 0.969697
+Accuracy: 0.96939695
+Accuracy: 0.9678968
+Accuracy: 0.9678968
+Accuracy: 0.9720972
+Accuracy: 0.9729973
+Accuracy: 0.9720972
+Accuracy: 0.9660966
+Accuracy: 0.97029704
+Accuracy: 0.97269726
+Accuracy: 0.9720972
+Accuracy: 0.9747975
+Accuracy: 0.97449744
+Accuracy: 0.97449744
+Accuracy: 0.9759976
+Accuracy: 0.97749776
+Accuracy: 0.9762976
+Accuracy: 0.9738974
+Accuracy: 0.9738974
+Train: 10
+Accuracy: 0.12511252
+Accuracy: 0.9117912
+Accuracy: 0.93369335
+Accuracy: 0.93849385
+Accuracy: 0.94419444
+Accuracy: 0.9534953
+Accuracy: 0.950195
+Accuracy: 0.95319533
+Accuracy: 0.9579958
+Accuracy: 0.95079505
+Accuracy: 0.9549955
+Accuracy: 0.9609961
+Accuracy: 0.96069604
+Accuracy: 0.9633963
+Accuracy: 0.96069604
+Accuracy: 0.96369636
+Accuracy: 0.9627963
+Accuracy: 0.9630963
+Accuracy: 0.9639964
+Accuracy: 0.96129614
+Accuracy: 0.9642964
+Accuracy: 0.9672967
+Accuracy: 0.9657966
+Accuracy: 0.9687969
+Accuracy: 0.96369636
+Accuracy: 0.96639663
+Accuracy: 0.969697
+Accuracy: 0.9669967
+Accuracy: 0.9669967
+Accuracy: 0.9660966
+Accuracy: 0.96639663
+Accuracy: 0.96759677
+Accuracy: 0.97179717
+Accuracy: 0.9705971
+Accuracy: 0.97359735
+Accuracy: 0.97029704
+Accuracy: 0.9690969
+Accuracy: 0.9714972
+Accuracy: 0.97329736
+Accuracy: 0.96939695
+Accuracy: 0.9711971
+Accuracy: 0.9708971
+Accuracy: 0.9738974
+Accuracy: 0.97419745
+Accuracy: 0.97509754
+Accuracy: 0.96849686
+Accuracy: 0.97239727
+Accuracy: 0.9714972
+Accuracy: 0.9720972
+Accuracy: 0.9762976
+Accuracy: 0.9762976
+Train: 11
+Accuracy: 0.14131413
+Accuracy: 0.8832883
+Accuracy: 0.91719174
+Accuracy: 0.9330933
+Accuracy: 0.94149417
+Accuracy: 0.9390939
+Accuracy: 0.94659466
+Accuracy: 0.9450945
+Accuracy: 0.9459946
+Accuracy: 0.94179416
+Accuracy: 0.95229524
+Accuracy: 0.9543954
+Accuracy: 0.9540954
+Accuracy: 0.950195
+Accuracy: 0.95079505
+Accuracy: 0.9591959
+Accuracy: 0.9585959
+Accuracy: 0.9582958
+Accuracy: 0.960096
+Accuracy: 0.95889586
+Accuracy: 0.9624962
+Accuracy: 0.96159613
+Accuracy: 0.9570957
+Accuracy: 0.9627963
+Accuracy: 0.96159613
+Accuracy: 0.9648965
+Accuracy: 0.9657966
+Accuracy: 0.96549654
+Accuracy: 0.9669967
+Accuracy: 0.9657966
+Accuracy: 0.9633963
+Accuracy: 0.96549654
+Accuracy: 0.9669967
+Accuracy: 0.9666967
+Accuracy: 0.9648965
+Accuracy: 0.96849686
+Accuracy: 0.9657966
+Accuracy: 0.96369636
+Accuracy: 0.97029704
+Accuracy: 0.9681968
+Accuracy: 0.9639964
+Accuracy: 0.9678968
+Accuracy: 0.9714972
+Accuracy: 0.969697
+Accuracy: 0.9690969
+Accuracy: 0.9660966
+Accuracy: 0.9690969
+Accuracy: 0.96849686
+Accuracy: 0.96939695
+Accuracy: 0.9681968
+Accuracy: 0.9681968
+Train: 12
+Accuracy: 0.13921392
+Accuracy: 0.91239125
+Accuracy: 0.9288929
+Accuracy: 0.9438944
+Accuracy: 0.94089407
+Accuracy: 0.94419444
+Accuracy: 0.9480948
+Accuracy: 0.94659466
+Accuracy: 0.95229524
+Accuracy: 0.960096
+Accuracy: 0.95229524
+Accuracy: 0.96129614
+Accuracy: 0.96549654
+Accuracy: 0.9561956
+Accuracy: 0.9657966
+Accuracy: 0.95949596
+Accuracy: 0.95889586
+Accuracy: 0.96069604
+Accuracy: 0.9618962
+Accuracy: 0.9660966
+Accuracy: 0.96069604
+Accuracy: 0.9633963
+Accuracy: 0.9639964
+Accuracy: 0.9639964
+Accuracy: 0.9624962
+Accuracy: 0.96459645
+Accuracy: 0.96549654
+Accuracy: 0.9618962
+Accuracy: 0.969697
+Accuracy: 0.96939695
+Accuracy: 0.9669967
+Accuracy: 0.96849686
+Accuracy: 0.96759677
+Accuracy: 0.96939695
+Accuracy: 0.97329736
+Accuracy: 0.9648965
+Accuracy: 0.9708971
+Accuracy: 0.97029704
+Accuracy: 0.97029704
+Accuracy: 0.96849686
+Accuracy: 0.97359735
+Accuracy: 0.9705971
+Accuracy: 0.96849686
+Accuracy: 0.96939695
+Accuracy: 0.96849686
+Accuracy: 0.969697
+Accuracy: 0.9678968
+Accuracy: 0.9678968
+Accuracy: 0.97509754
+Accuracy: 0.9678968
+Accuracy: 0.9678968
+Train: 13
+Accuracy: 0.18391839
+Accuracy: 0.90759075
+Accuracy: 0.92469245
+Accuracy: 0.93459344
+Accuracy: 0.94179416
+Accuracy: 0.93669367
+Accuracy: 0.9492949
+Accuracy: 0.95079505
+Accuracy: 0.94749475
+Accuracy: 0.95079505
+Accuracy: 0.95229524
+Accuracy: 0.9537954
+Accuracy: 0.95319533
+Accuracy: 0.95469546
+Accuracy: 0.95949596
+Accuracy: 0.9528953
+Accuracy: 0.9540954
+Accuracy: 0.9576958
+Accuracy: 0.949595
+Accuracy: 0.9570957
+Accuracy: 0.960096
+Accuracy: 0.95739573
+Accuracy: 0.95889586
+Accuracy: 0.96129614
+Accuracy: 0.96219623
+Accuracy: 0.9648965
+Accuracy: 0.95979595
+Accuracy: 0.9585959
+Accuracy: 0.9648965
+Accuracy: 0.9624962
+Accuracy: 0.96219623
+Accuracy: 0.9660966
+Accuracy: 0.9651965
+Accuracy: 0.96459645
+Accuracy: 0.9651965
+Accuracy: 0.9633963
+Accuracy: 0.9666967
+Accuracy: 0.9657966
+Accuracy: 0.96639663
+Accuracy: 0.96639663
+Accuracy: 0.96639663
+Accuracy: 0.9708971
+Accuracy: 0.9657966
+Accuracy: 0.9669967
+Accuracy: 0.96759677
+Accuracy: 0.969997
+Accuracy: 0.9657966
+Accuracy: 0.9687969
+Accuracy: 0.9687969
+Accuracy: 0.9678968
+Accuracy: 0.9678968
+Train: 14
+Accuracy: 0.14371437
+Accuracy: 0.9135914
+Accuracy: 0.929793
+Accuracy: 0.94239426
+Accuracy: 0.9453945
+Accuracy: 0.95139515
+Accuracy: 0.9549955
+Accuracy: 0.9579958
+Accuracy: 0.9540954
+Accuracy: 0.95649564
+Accuracy: 0.960096
+Accuracy: 0.96039605
+Accuracy: 0.9576958
+Accuracy: 0.9591959
+Accuracy: 0.95559555
+Accuracy: 0.96129614
+Accuracy: 0.96069604
+Accuracy: 0.9639964
+Accuracy: 0.96219623
+Accuracy: 0.9618962
+Accuracy: 0.9642964
+Accuracy: 0.9633963
+Accuracy: 0.96159613
+Accuracy: 0.9660966
+Accuracy: 0.9657966
+Accuracy: 0.9642964
+Accuracy: 0.9642964
+Accuracy: 0.9690969
+Accuracy: 0.9711971
+Accuracy: 0.9642964
+Accuracy: 0.96639663
+Accuracy: 0.96639663
+Accuracy: 0.96639663
+Accuracy: 0.97179717
+Accuracy: 0.9708971
+Accuracy: 0.9708971
+Accuracy: 0.97239727
+Accuracy: 0.9708971
+Accuracy: 0.96759677
+Accuracy: 0.9729973
+Accuracy: 0.97029704
+Accuracy: 0.97329736
+Accuracy: 0.97269726
+Accuracy: 0.97179717
+Accuracy: 0.9711971
+Accuracy: 0.9672967
+Accuracy: 0.9708971
+Accuracy: 0.97449744
+Accuracy: 0.9687969
+Accuracy: 0.9711971
+Accuracy: 0.9711971
+Train: 15
+Accuracy: 0.08550855
+Accuracy: 0.9135914
+Accuracy: 0.93279326
+Accuracy: 0.939694
+Accuracy: 0.94269425
+Accuracy: 0.9510951
+Accuracy: 0.95079505
+Accuracy: 0.95169514
+Accuracy: 0.9585959
+Accuracy: 0.9582958
+Accuracy: 0.95949596
+Accuracy: 0.9558956
+Accuracy: 0.9558956
+Accuracy: 0.9618962
+Accuracy: 0.96369636
+Accuracy: 0.9618962
+Accuracy: 0.9609961
+Accuracy: 0.9642964
+Accuracy: 0.9627963
+Accuracy: 0.9648965
+Accuracy: 0.9561956
+Accuracy: 0.9669967
+Accuracy: 0.969997
+Accuracy: 0.9627963
+Accuracy: 0.9687969
+Accuracy: 0.9627963
+Accuracy: 0.96759677
+Accuracy: 0.9681968
+Accuracy: 0.9687969
+Accuracy: 0.9690969
+Accuracy: 0.9678968
+Accuracy: 0.96849686
+Accuracy: 0.9660966
+Accuracy: 0.9660966
+Accuracy: 0.97029704
+Accuracy: 0.9759976
+Accuracy: 0.9738974
+Accuracy: 0.9720972
+Accuracy: 0.96849686
+Accuracy: 0.969697
+Accuracy: 0.9747975
+Accuracy: 0.9753975
+Accuracy: 0.97269726
+Accuracy: 0.9720972
+Accuracy: 0.96459645
+Accuracy: 0.97179717
+Accuracy: 0.9714972
+Accuracy: 0.97329736
+Accuracy: 0.97359735
+Accuracy: 0.9729973
+Accuracy: 0.9729973
+Average: 0.9710999647776286
+during\_time: 1164.8293190002441
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
