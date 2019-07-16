@@ -6,5 +6,8 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
+    },
+    "files.associations": {
+        "ostream": "cpp"
     }
 }
