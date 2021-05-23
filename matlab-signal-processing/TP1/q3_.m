@@ -1,0 +1,11 @@
+t=-1:0.01:10;
+y1=stepfun(t,0).*cos(pi*t);%设设w为pi
+y2=stepfun(t,0)-stepfun(t,4);
+y=conv(y1,y2)*0.01;
+n=length(y1)+length(y2)-2;
+x=0:0.01:n*0.01;
+plot(x,y);
+axis([0,18,-0.5,0.5]);
+title('卷积2');
+xlabel('t');
+ylabel('y(t)');
